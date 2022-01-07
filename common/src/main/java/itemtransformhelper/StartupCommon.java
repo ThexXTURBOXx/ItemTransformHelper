@@ -1,8 +1,8 @@
 package itemtransformhelper;
 
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
+import me.shedaniel.architectury.registry.CreativeTabs;
+import me.shedaniel.architectury.registry.DeferredRegister;
+import me.shedaniel.architectury.registry.RegistrySupplier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -34,7 +34,7 @@ public class StartupCommon {
 
     // Item Groups
     public static final ItemGroup ITH_ITEM_GROUP =
-            CreativeTabRegistry.create(new Identifier(MODID, "items"), () -> new ItemStack(ITEM_CAMERA.get()));
+            CreativeTabs.create(new Identifier(MODID, "items"), () -> new ItemStack(ITEM_CAMERA.get()));
 
     public static void init() {
         ITEMS.register();

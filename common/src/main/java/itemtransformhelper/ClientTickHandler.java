@@ -20,7 +20,7 @@ public class ClientTickHandler {
         if (player == null) return;
 
         boolean foundCamera = false;
-        PlayerInventory inventory = player.getInventory();
+        PlayerInventory inventory = player.inventory;
         for (int i = 0; i < PlayerInventory.getHotbarSize(); ++i) {
             ItemStack stack = inventory.main.get(i);
             if (stack.getItem() == StartupCommon.ITEM_CAMERA.get()) {

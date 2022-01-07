@@ -77,8 +77,8 @@ public abstract class ItemModelFlexibleCamera implements BakedModel {
     }
 
     @Override
-    public Sprite getParticleSprite() {
-        return originalModel.getParticleSprite();
+    public Sprite getSprite() {
+        return originalModel.getSprite();
     }
 
     @Override

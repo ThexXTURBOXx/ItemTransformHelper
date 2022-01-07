@@ -50,39 +50,40 @@ public class HUDTextRenderer {
         Transformation transformation;
 
         switch (hudInfoUpdateLink.selectedTransform) {
-        case THIRD_LEFT -> {
+        case THIRD_LEFT:
             displayText.add("3rd-L");
             transformation = hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand;
-        }
-        case THIRD_RIGHT -> {
+            break;
+        case THIRD_RIGHT:
             displayText.add("3rd-R");
             transformation = hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand;
-        }
-        case FIRST_LEFT -> {
+            break;
+        case FIRST_LEFT:
             displayText.add("1st-L");
             transformation = hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand;
-        }
-        case FIRST_RIGHT -> {
+            break;
+        case FIRST_RIGHT:
             displayText.add("1st-R");
             transformation = hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand;
-        }
-        case GUI -> {
+            break;
+        case GUI:
             displayText.add("gui");
             transformation = hudInfoUpdateLink.itemCameraTransforms.gui;
-        }
-        case HEAD -> {
+            break;
+        case HEAD:
             displayText.add("head");
             transformation = hudInfoUpdateLink.itemCameraTransforms.head;
-        }
-        case FIXED -> {
+            break;
+        case FIXED:
             displayText.add("fixed");
             transformation = hudInfoUpdateLink.itemCameraTransforms.fixed;
-        }
-        case GROUND -> {
+            break;
+        case GROUND:
             displayText.add("grnd");
             transformation = hudInfoUpdateLink.itemCameraTransforms.ground;
-        }
-        default -> throw new IllegalArgumentException("Unknown cameraTransformType:" + hudInfoUpdateLink.selectedTransform);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown cameraTransformType:" + hudInfoUpdateLink.selectedTransform);
         }
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSFORM);
 

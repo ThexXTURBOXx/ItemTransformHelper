@@ -60,11 +60,18 @@ public class MenuItemCameraTransforms {
             if (!linkToHudRenderer.menuVisible) return;
 
             switch (whichKey) {
-            case DOWN -> linkToHudRenderer.selectedField = linkToHudRenderer.selectedField.getNextField();
-            case UP -> linkToHudRenderer.selectedField = linkToHudRenderer.selectedField.getPreviousField();
-            case RIGHT, LEFT -> alterField(whichKey == MenuKeyHandler.ArrowKeys.RIGHT);
-            default -> {
-            }
+            case DOWN:
+                linkToHudRenderer.selectedField = linkToHudRenderer.selectedField.getNextField();
+                break;
+            case UP:
+                linkToHudRenderer.selectedField = linkToHudRenderer.selectedField.getPreviousField();
+                break;
+            case RIGHT:
+            case LEFT:
+                alterField(whichKey == MenuKeyHandler.ArrowKeys.RIGHT);
+                break;
+            default:
+                break;
             }
         }
 
@@ -79,33 +86,48 @@ public class MenuItemCameraTransforms {
         final float TRANSLATION_INCREMENT = 0.25F * 0.0625F; // 1/4 of a block, with multiplier from
         // Transformation.Deserializer::deserialize
         switch (linkToHudRenderer.selectedField) {
-        case TRANSFORM -> linkToHudRenderer.selectedTransform = increase ? linkToHudRenderer.selectedTransform.getNext()
-                : linkToHudRenderer.selectedTransform.getPrevious();
-        case SCALE_X -> transformVec3f.scale.add(increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0, 0);
-        case SCALE_Y -> transformVec3f.scale.add(0, increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0);
-        case SCALE_Z -> transformVec3f.scale.add(0, 0, increase ? SCALE_INCREMENT : -SCALE_INCREMENT);
-        case ROTATE_X -> {
+        case TRANSFORM:
+            linkToHudRenderer.selectedTransform = increase ? linkToHudRenderer.selectedTransform.getNext()
+                    : linkToHudRenderer.selectedTransform.getPrevious();
+            break;
+        case SCALE_X:
+            transformVec3f.scale.add(increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0, 0);
+            break;
+        case SCALE_Y:
+            transformVec3f.scale.add(0, increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0);
+            break;
+        case SCALE_Z:
+            transformVec3f.scale.add(0, 0, increase ? SCALE_INCREMENT : -SCALE_INCREMENT);
+            break;
+        case ROTATE_X:
             float newAngle = transformVec3f.rotation.getX() + (increase ? ROTATION_INCREMENT : -ROTATION_INCREMENT);
             newAngle = MathHelper.wrapDegrees(newAngle - 180) + 180;
             transformVec3f.rotation.set(newAngle, transformVec3f.rotation.getY(), transformVec3f.rotation.getZ());
-        }
-        case ROTATE_Y -> {
-            float newAngle = transformVec3f.rotation.getY() + (increase ? ROTATION_INCREMENT : -ROTATION_INCREMENT);
+            break;
+        case ROTATE_Y:
+            newAngle = transformVec3f.rotation.getY() + (increase ? ROTATION_INCREMENT : -ROTATION_INCREMENT);
             newAngle = MathHelper.wrapDegrees(newAngle - 180) + 180;
             transformVec3f.rotation.set(transformVec3f.rotation.getX(), newAngle, transformVec3f.rotation.getZ());
-        }
-        case ROTATE_Z -> {
-            float newAngle = transformVec3f.rotation.getZ() + (increase ? ROTATION_INCREMENT : -ROTATION_INCREMENT);
+            break;
+        case ROTATE_Z:
+            newAngle = transformVec3f.rotation.getZ() + (increase ? ROTATION_INCREMENT : -ROTATION_INCREMENT);
             newAngle = MathHelper.wrapDegrees(newAngle - 180) + 180;
             transformVec3f.rotation.set(transformVec3f.rotation.getX(), transformVec3f.rotation.getY(), newAngle);
-        }
-        case TRANSLATE_X -> transformVec3f.translation
-                .add(increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT, 0, 0);
-        case TRANSLATE_Y -> transformVec3f.translation
-                .add(0, increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT, 0);
-        case TRANSLATE_Z -> transformVec3f.translation
-                .add(0, 0, increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT);
-        case RESTORE_DEFAULT_ALL, RESTORE_DEFAULT -> {
+            break;
+        case TRANSLATE_X:
+            transformVec3f.translation
+                    .add(increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT, 0, 0);
+            break;
+        case TRANSLATE_Y:
+            transformVec3f.translation
+                    .add(0, increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT, 0);
+            break;
+        case TRANSLATE_Z:
+            transformVec3f.translation
+                    .add(0, 0, increase ? TRANSLATION_INCREMENT : -TRANSLATION_INCREMENT);
+            break;
+        case RESTORE_DEFAULT_ALL:
+        case RESTORE_DEFAULT:
             ItemModelFlexibleCamera.UpdateLink link = StartupClientOnly.modelBakeEventHandler.getItemOverrideLink();
             BakedModel savedModel = link.itemModelToOverride;
             if (savedModel != null) {  // not sure why this would ever be null, but it was (in a bug report), so just
@@ -121,8 +143,8 @@ public class MenuItemCameraTransforms {
                 }
             }
             link.itemModelToOverride = savedModel;
-        }
-        case PRINT -> {
+            break;
+        case PRINT:
             StringBuilder output = new StringBuilder();
             output.append("\n\"display\": {\n");
             printTransform(output, "thirdperson_righthand",
@@ -146,23 +168,31 @@ public class MenuItemCameraTransforms {
             LOGGER.info(output);
             LiteralText text = new LiteralText("\"display\" JSON section printed to console (LOGGER.info)...");
             MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(text);
-        }
+            break;
         }
     }
 
     // points to the appropriate transform based on which transform has been selected.
     private static Transformation getItemTransformRef(HUDTextRenderer.HUDInfoUpdateLink linkToHUDRenderer,
                                                       HUDTextRenderer.HUDInfoUpdateLink.TransformName transformName) {
-        return switch (transformName) {
-            case THIRD_LEFT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonLeftHand;
-            case THIRD_RIGHT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonRightHand;
-            case FIRST_LEFT -> linkToHUDRenderer.itemCameraTransforms.firstPersonLeftHand;
-            case FIRST_RIGHT -> linkToHUDRenderer.itemCameraTransforms.firstPersonRightHand;
-            case GUI -> linkToHUDRenderer.itemCameraTransforms.gui;
-            case HEAD -> linkToHUDRenderer.itemCameraTransforms.head;
-            case FIXED -> linkToHUDRenderer.itemCameraTransforms.fixed;
-            case GROUND -> linkToHUDRenderer.itemCameraTransforms.ground;
-        };
+        switch (transformName) {
+        case THIRD_LEFT:
+            return linkToHUDRenderer.itemCameraTransforms.thirdPersonLeftHand;
+        case THIRD_RIGHT:
+            return linkToHUDRenderer.itemCameraTransforms.thirdPersonRightHand;
+        case FIRST_LEFT:
+            return linkToHUDRenderer.itemCameraTransforms.firstPersonLeftHand;
+        case FIRST_RIGHT:
+            return linkToHUDRenderer.itemCameraTransforms.firstPersonRightHand;
+        case GUI:
+            return linkToHUDRenderer.itemCameraTransforms.gui;
+        case HEAD:
+            return linkToHUDRenderer.itemCameraTransforms.head;
+        case FIXED:
+            return linkToHUDRenderer.itemCameraTransforms.fixed;
+        default:
+            return linkToHUDRenderer.itemCameraTransforms.ground;
+        }
     }
 
     private void copySingleTransform(HUDTextRenderer.HUDInfoUpdateLink linkToHUDRenderer, BakedModel savedModel,
@@ -195,9 +225,9 @@ public class MenuItemCameraTransforms {
     }
 
     private static void copyTransforms(Transformation from, Transformation to) {
-        to.translation.set(from.translation);
-        to.scale.set(from.scale);
-        to.rotation.set(from.rotation);
+        to.translation.set(from.translation.getX(), from.translation.getY(), from.translation.getZ());
+        to.scale.set(from.scale.getX(), from.scale.getY(), from.scale.getZ());
+        to.rotation.set(from.rotation.getX(), from.rotation.getY(), from.rotation.getZ());
     }
 
     /**
