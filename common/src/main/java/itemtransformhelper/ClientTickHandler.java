@@ -19,13 +19,15 @@ public class ClientTickHandler {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
 
-        boolean foundCamera = false;
-        Inventory inventory = player.getInventory();
-        for (int i = 0; i < Inventory.getSelectionSize(); ++i) {
-            ItemStack stack = inventory.items.get(i);
-            if (stack.getItem() == StartupCommon.ITEM_CAMERA.get()) {
-                foundCamera = true;
-                break;
+        boolean foundCamera = player.getOffhandItem().getItem() == StartupCommon.ITEM_CAMERA.get();
+        if (!foundCamera) {
+            Inventory inventory = player.getInventory();
+            for (int i = 0; i < Inventory.getSelectionSize(); ++i) {
+                ItemStack stack = inventory.items.get(i);
+                if (stack.getItem() == StartupCommon.ITEM_CAMERA.get()) {
+                    foundCamera = true;
+                    break;
+                }
             }
         }
         StartupClientOnly.menuItemCameraTransforms.changeMenuVisible(foundCamera);
