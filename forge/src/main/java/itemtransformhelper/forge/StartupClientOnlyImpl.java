@@ -1,6 +1,6 @@
 package itemtransformhelper.forge;
 
-import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,8 +18,8 @@ public class StartupClientOnlyImpl {
     }
 
     @SubscribeEvent
-    public void modelBakeEvent(ModelBakeEvent event) {
-        modelBakeEventHandler.modelBakeEvent(event.getModelRegistry());
+    public void modelBakeEvent(ModelEvent.BakingCompleted event) {
+        modelBakeEventHandler.modelBakeEvent(event.getModels());
     }
 
     @SubscribeEvent

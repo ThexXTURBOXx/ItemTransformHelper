@@ -2,7 +2,7 @@ package itemtransformhelper.forge;
 
 import itemtransformhelper.HUDTextRenderer;
 import itemtransformhelper.MenuItemCameraTransforms;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,7 +24,7 @@ public class MenuItemCameraTransformsImpl {
     }
 
     @SubscribeEvent
-    public void displayHUDText(RenderGameOverlayEvent.Text event) {
+    public void displayHUDText(CustomizeGuiOverlayEvent.Chat event) {
         hudTextRenderer.displayHUDText(event.getPoseStack());
     }
 
