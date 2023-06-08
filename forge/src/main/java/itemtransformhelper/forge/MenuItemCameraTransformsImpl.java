@@ -25,7 +25,7 @@ public class MenuItemCameraTransformsImpl {
 
     @SubscribeEvent
     public void displayHUDText(CustomizeGuiOverlayEvent.Chat event) {
-        hudTextRenderer.displayHUDText(event.getPoseStack());
+        hudTextRenderer.displayHUDText(event.getGuiGraphics());
     }
 
     @SubscribeEvent

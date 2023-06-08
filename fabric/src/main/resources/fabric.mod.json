@@ -15,7 +15,7 @@
     "sources": "https://github.com/TheGreyGhost/ItemTransformHelper",
     "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
   },
-  "license": "All rights reserved",
+  "license": "Unlicense",
   "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
   "environment": "*",
   "entrypoints": {
@@ -28,7 +28,7 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.19.4",
-    "architectury": ">=8.1.79"
+    "minecraft": ">=1.20",
+    "architectury": ">=9.0.7"
   }
 }

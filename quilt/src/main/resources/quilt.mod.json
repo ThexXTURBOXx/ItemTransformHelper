@@ -7,23 +7,24 @@
     "group": "${group}",
     "id": "itemtransformhelper",
     "version": "${version}",
-    "name": "Item Transform Helper",
-    "description": "Interactively change the position, scale, and rotation of an item.",
-    "authors": [
-      "TGG",
-      "ThexXTURBOXx",
-      "Romejanic",
-      "lehjr"
-    ],
-    "contact": {
-      "homepage": "https://www.planetminecraft.com/mod/item-transform-helper---interactively-rotate-scale-translate/",
-      "sources": "https://github.com/TheGreyGhost/ItemTransformHelper",
-      "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
+    "metadata": {
+      "name": "Item Transform Helper",
+      "description": "Interactively change the position, scale, and rotation of an item.",
+      "contributors": {
+        "TGG": "Original Author",
+        "ThexXTURBOXx": "Maintainer since 1.16.5",
+        "Romejanic": "Update to 1.16.1",
+        "lehjr": "Update to 1.12.2"
+      },
+      "contact": {
+        "homepage": "https://www.planetminecraft.com/mod/item-transform-helper---interactively-rotate-scale-translate/",
+        "sources": "https://github.com/TheGreyGhost/ItemTransformHelper",
+        "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
+      },
+      "license": "Unlicense",
+      "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png"
     },
-    "license": "All rights reserved",
-    "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
-    "environment": "*",
     "entrypoints": {
       "init": [
         "itemtransformhelper.quilt.ItemTransformHelperQuilt"
@@ -40,11 +41,11 @@
       },
       {
         "id": "minecraft",
-        "version": ">=1.19.4"
+        "version": ">=1.20"
       },
       {
         "id": "architectury",
-        "version": ">=8.1.79"
+        "version": ">=9.0.7"
       }
     ]
   }

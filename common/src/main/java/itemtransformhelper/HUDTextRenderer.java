@@ -1,10 +1,9 @@
 package itemtransformhelper;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -38,7 +37,7 @@ public class HUDTextRenderer {
      * Draw the Head Up Display menu on screen.
      * The information is taken from the hudInfoUpdateLink which is updated by other classes.
      */
-    public void displayHUDText(PoseStack poseStack) {
+    public void displayHUDText(GuiGraphics guiGraphics) {
         if (hudInfoUpdateLink == null || !hudInfoUpdateLink.menuVisible || hudInfoUpdateLink.itemCameraTransforms == null)
             return;
         ArrayList<String> displayText = new ArrayList<>();
@@ -133,19 +132,19 @@ public class HUDTextRenderer {
         displayText.add("======");
         selectableField.add(NOT_SELECTABLE);
 
-        Font textRenderer = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
         int yPos = 2;
         int xPos = 2;
         for (int i = 0; i < displayText.size(); ++i) {
             String msg = displayText.get(i);
-            yPos += textRenderer.lineHeight;
+            yPos += font.lineHeight;
             if (msg == null) continue;
             boolean fieldIsSelected = hudInfoUpdateLink.selectedField == selectableField.get(i);
             int highlightColour = fieldIsSelected ? GREEN_HALF_TRANSPARENT : MED_GRAY_HALF_TRANSPARENT;
-            GuiComponent.fill(poseStack, xPos - 1, yPos - 1,
-                    xPos + textRenderer.width(msg) + 1, yPos + textRenderer.lineHeight - 1, highlightColour);
+            guiGraphics.fill(xPos - 1, yPos - 1,
+                    xPos + font.width(msg) + 1, yPos + font.lineHeight - 1, highlightColour);
             int stringColour = fieldIsSelected ? BLACK : LIGHT_GRAY;
-            textRenderer.draw(poseStack, msg, xPos, yPos, stringColour);
+            guiGraphics.drawString(font, msg, xPos, yPos, stringColour, false);
         }
     }
 

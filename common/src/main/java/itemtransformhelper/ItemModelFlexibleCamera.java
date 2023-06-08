@@ -52,7 +52,7 @@ public abstract class ItemModelFlexibleCamera implements BakedModel {
     }
 
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
         return originalModel.getQuads(state, side, rand);
     }
 
@@ -77,12 +77,12 @@ public abstract class ItemModelFlexibleCamera implements BakedModel {
     }
 
     @Override
-    public TextureAtlasSprite getParticleIcon() {
+    public @NotNull TextureAtlasSprite getParticleIcon() {
         return originalModel.getParticleIcon();
     }
 
     @Override
-    public ItemOverrides getOverrides() {
+    public @NotNull ItemOverrides getOverrides() {
         return originalModel.getOverrides();
     }
 
