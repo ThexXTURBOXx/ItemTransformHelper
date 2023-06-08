@@ -21,6 +21,7 @@
       "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
     },
     "license": "All rights reserved",
+    "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
     "entrypoints": {
@@ -39,11 +40,11 @@
       },
       {
         "id": "minecraft",
-        "version": ">=1.19.2"
+        "version": ">=1.19.4"
       },
       {
         "id": "architectury",
-        "version": ">=6.3.49"
+        "version": ">=8.1.79"
       }
     ]
   }

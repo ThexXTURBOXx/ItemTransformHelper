@@ -1,13 +1,14 @@
 package itemtransformhelper;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Vector3f;
 
 /**
  * User: The Grey Ghost
@@ -181,18 +182,18 @@ public class HUDTextRenderer {
 
         public enum TransformName {
 
-            THIRD_LEFT(ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND),
-            THIRD_RIGHT(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND),
-            FIRST_LEFT(ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND),
-            FIRST_RIGHT(ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND),
-            HEAD(ItemTransforms.TransformType.HEAD),
-            GUI(ItemTransforms.TransformType.GUI),
-            GROUND(ItemTransforms.TransformType.GROUND),
-            FIXED(ItemTransforms.TransformType.FIXED);
+            THIRD_LEFT(ItemDisplayContext.THIRD_PERSON_LEFT_HAND),
+            THIRD_RIGHT(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND),
+            FIRST_LEFT(ItemDisplayContext.FIRST_PERSON_LEFT_HAND),
+            FIRST_RIGHT(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND),
+            HEAD(ItemDisplayContext.HEAD),
+            GUI(ItemDisplayContext.GUI),
+            GROUND(ItemDisplayContext.GROUND),
+            FIXED(ItemDisplayContext.FIXED);
 
             public static final TransformName[] VALUES = TransformName.values();
 
-            private final ItemTransforms.TransformType vanillaType;
+            private final ItemDisplayContext vanillaType;
 
             public TransformName getNext() {
                 for (TransformName transformName : VALUES) {
@@ -208,11 +209,11 @@ public class HUDTextRenderer {
                 return FIXED;
             }
 
-            public ItemTransforms.TransformType getVanillaTransformType() {
+            public ItemDisplayContext getVanillaTransformType() {
                 return vanillaType;
             }
 
-            TransformName(ItemTransforms.TransformType vanillaType) {
+            TransformName(ItemDisplayContext vanillaType) {
                 this.vanillaType = vanillaType;
             }
 

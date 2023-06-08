@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "itemtransformhelper:items/item_camera_icon"
+    "layer0": "itemtransformhelper:item/item_camera_icon"
   },
   "display": {
     "thirdperson_righthand": {

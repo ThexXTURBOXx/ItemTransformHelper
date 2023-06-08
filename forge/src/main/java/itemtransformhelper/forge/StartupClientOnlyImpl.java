@@ -19,7 +19,7 @@ public class StartupClientOnlyImpl {
 
     @SubscribeEvent
     public void modelBakeEvent(ModelEvent.BakingCompleted event) {
-        modelBakeEventHandler.modelBakeEvent(event.getModels());
+        modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
     }
 
     @SubscribeEvent

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class ItemCamera extends Item {
 
     public ItemCamera() {
-        super(new Properties().stacksTo(1).tab(StartupCommon.ITH_ITEM_GROUP));
+        super(new Properties().stacksTo(1).arch$tab(StartupCommon.ITH_ITEM_GROUP));
     }
 
     @Override

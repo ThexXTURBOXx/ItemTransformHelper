@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -168,7 +169,7 @@ public class MenuItemCameraTransforms {
     private void copySingleTransform(HUDTextRenderer.HUDInfoUpdateLink linkToHUDRenderer, BakedModel savedModel,
                                      HUDTextRenderer.HUDInfoUpdateLink.TransformName transformToBeCopied) {
         ItemTransform transformation = getItemTransformRef(linkToHUDRenderer, transformToBeCopied);
-        ItemTransforms.TransformType currentType = transformToBeCopied.getVanillaTransformType();
+        ItemDisplayContext currentType = transformToBeCopied.getVanillaTransformType();
         ItemTransform transform = savedModel.getTransforms().getTransform(currentType);
         copyTransforms(transform, transformation);
     }
@@ -195,9 +196,9 @@ public class MenuItemCameraTransforms {
     }
 
     private static void copyTransforms(ItemTransform from, ItemTransform to) {
-        to.translation.load(from.translation);
-        to.scale.load(from.scale);
-        to.rotation.load(from.rotation);
+        to.translation.set(from.translation);
+        to.scale.set(from.scale);
+        to.rotation.set(from.rotation);
     }
 
     /**
