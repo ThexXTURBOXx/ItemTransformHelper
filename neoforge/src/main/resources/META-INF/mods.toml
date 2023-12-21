@@ -1,23 +1,22 @@
 modLoader = "javafml"
-loaderVersion = "[48,)"
+loaderVersion = "[1,)"
 issueTrackerURL = "https://github.com/TheGreyGhost/ItemTransformHelper"
+logoFile = "logo.png"
+authors = "TGG, ThexXTURBOXx, Romejanic, lehjr"
 license = "Unlicense"
 
 [[mods]]
 modId = "itemtransformhelper"
 version = "${version}"
 displayName = "Item Transform Helper"
-authors = "TGG, ThexXTURBOXx, Romejanic, lehjr"
 description = '''
 Interactively change the position, scale, and rotation of an item.
 '''
-logoFile = "logo.png"
-license = "Unlicense"
 
 [[dependencies.itemtransformhelper]]
-modId = "forge"
+modId = "neoforge"
 mandatory = true
-versionRange = "[48,)"
+versionRange = "[20,)"
 ordering = "NONE"
 side = "BOTH"
 

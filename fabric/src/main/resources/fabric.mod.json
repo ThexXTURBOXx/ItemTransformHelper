@@ -16,7 +16,7 @@
     "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
   },
   "license": "Unlicense",
-  "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
+  "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [

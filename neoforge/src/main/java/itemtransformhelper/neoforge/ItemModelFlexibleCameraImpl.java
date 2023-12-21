@@ -1,4 +1,4 @@
-package itemtransformhelper.fabric;
+package itemtransformhelper.neoforge;
 
 import itemtransformhelper.ItemModelFlexibleCamera;
 import net.minecraft.client.resources.model.BakedModel;
@@ -10,7 +10,7 @@ public class ItemModelFlexibleCameraImpl extends ItemModelFlexibleCamera {
     }
 
     public static ItemModelFlexibleCamera create(BakedModel originalModel,
-                                                 UpdateLink updateLink) {
+                                                 ItemModelFlexibleCamera.UpdateLink updateLink) {
         return new ItemModelFlexibleCameraImpl(originalModel, updateLink);
     }
 
