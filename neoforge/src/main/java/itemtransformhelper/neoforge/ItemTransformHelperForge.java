@@ -6,15 +6,16 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static itemtransformhelper.ItemTransformHelper.MODID;
 
 @Mod(MODID)
 public class ItemTransformHelperForge {
 
-    public ItemTransformHelperForge() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    static IEventBus modEventBus;
+
+    public ItemTransformHelperForge(IEventBus modEventBus) {
+        ItemTransformHelperForge.modEventBus = modEventBus;
 
         // Register the setup method for modloading
         modEventBus.addListener(this::setup);

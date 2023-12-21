@@ -1,12 +1,13 @@
 modLoader = "javafml"
-loaderVersion = "[48,)"
-issueTrackerURL = "https://github.com/TheGreyGhost/ItemTransformHelper"
+loaderVersion = "[49,)"
+issueTrackerURL = "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
 license = "Unlicense"
 
 [[mods]]
 modId = "itemtransformhelper"
 version = "${version}"
 displayName = "Item Transform Helper"
+displayURL = "https://modrinth.com/mod/item-transform-helper"
 authors = "TGG, ThexXTURBOXx, Romejanic, lehjr"
 description = '''
 Interactively change the position, scale, and rotation of an item.
@@ -17,20 +18,23 @@ license = "Unlicense"
 [[dependencies.itemtransformhelper]]
 modId = "forge"
 mandatory = true
-versionRange = "[48,)"
+type = "required"
+versionRange = "[49,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.itemtransformhelper]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.2,)"
+type = "required"
+versionRange = "[1.20.3,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.itemtransformhelper]]
 modId = "architectury"
 mandatory = true
-versionRange = "[10.0.17,)"
+type = "required"
+versionRange = "[11.0.9,)"
 ordering = "AFTER"
 side = "BOTH"

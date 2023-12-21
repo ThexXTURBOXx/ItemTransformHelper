@@ -11,9 +11,9 @@
     "lehjr"
   ],
   "contact": {
-    "homepage": "https://www.planetminecraft.com/mod/item-transform-helper---interactively-rotate-scale-translate/",
-    "sources": "https://github.com/TheGreyGhost/ItemTransformHelper",
-    "issues": "https://github.com/TheGreyGhost/ItemTransformHelper/issues"
+    "homepage": "https://modrinth.com/mod/item-transform-helper",
+    "sources": "https://github.com/ThexXTURBOXx/ItemTransformHelper",
+    "issues": "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
   },
   "license": "Unlicense",
   "icon": "logo.png",
@@ -28,7 +28,7 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.20",
-    "architectury": ">=9.0.7"
+    "minecraft": ">=1.20.3",
+    "architectury": ">=11.0.9"
   }
 }

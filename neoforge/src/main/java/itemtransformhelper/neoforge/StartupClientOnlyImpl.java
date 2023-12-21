@@ -1,7 +1,6 @@
 package itemtransformhelper.neoforge;
 
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
@@ -13,8 +12,8 @@ public class StartupClientOnlyImpl {
 
     public static void clientSetup() {
         StartupClientOnlyImpl instance = new StartupClientOnlyImpl();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(instance::modelBakeEvent);
-        NeoForge.EVENT_BUS.register(instance);
+        ItemTransformHelperForge.modEventBus.addListener(instance::modelBakeEvent);
+        NeoForge.EVENT_BUS.register(new ClientTickListener());
     }
 
     @SubscribeEvent
@@ -22,10 +21,12 @@ public class StartupClientOnlyImpl {
         modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
     }
 
-    @SubscribeEvent
-    public void clientTickEvent(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            clientTickHandler.clientTickEvent();
+    private static class ClientTickListener {
+        @SubscribeEvent
+        public void clientTickEvent(TickEvent.ClientTickEvent event) {
+            if (event.phase == TickEvent.Phase.START) {
+                clientTickHandler.clientTickEvent();
+            }
         }
     }
 
