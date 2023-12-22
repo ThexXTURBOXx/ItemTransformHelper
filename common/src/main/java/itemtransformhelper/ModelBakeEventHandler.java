@@ -34,14 +34,14 @@ public class ModelBakeEventHandler {
             modelRegistry.put(modelKey, wrappedModel);
         }
 
-        ItemTransformHelper.logger.warn("Warning - The Item Transform Helper replaces your BakedModels with a "
-                + "wrapped version, this");
-        ItemTransformHelper.logger.warn("  is done even when the helper is not in your hotbar, and might cause "
-                + "problems if your");
-        ItemTransformHelper.logger.warn("  BakedModel implements an interface ItemTransformHelper doesn't know about"
-                + ".");
-        ItemTransformHelper.logger.warn("  I recommend you disable the mod when you're not actively using it to "
-                + "transform your items.");
+        ItemTransformHelper.LOGGER.warn("Warning - The Item Transform Helper replaces your BakedModels with a "
+                                        + "wrapped version, this");
+        ItemTransformHelper.LOGGER.warn("  is done even when the helper is not in your hotbar, and might cause "
+                                        + "problems if your");
+        ItemTransformHelper.LOGGER.warn("  BakedModel implements an interface ItemTransformHelper doesn't know about"
+                                        + ".");
+        ItemTransformHelper.LOGGER.warn("  I recommend you disable the mod when you're not actively using it to "
+                                        + "transform your items.");
     }
 
     public ItemModelFlexibleCamera.UpdateLink getItemOverrideLink() {

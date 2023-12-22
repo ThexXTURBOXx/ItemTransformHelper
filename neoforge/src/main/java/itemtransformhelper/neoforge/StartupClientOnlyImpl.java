@@ -7,21 +7,23 @@ import net.neoforged.neoforge.event.TickEvent;
 
 import static itemtransformhelper.StartupClientOnly.clientTickHandler;
 import static itemtransformhelper.StartupClientOnly.modelBakeEventHandler;
+import static itemtransformhelper.neoforge.ItemTransformHelperNeoForge.modEventBus;
 
 public class StartupClientOnlyImpl {
 
     public static void clientSetup() {
-        StartupClientOnlyImpl instance = new StartupClientOnlyImpl();
-        ItemTransformHelperForge.modEventBus.addListener(instance::modelBakeEvent);
-        NeoForge.EVENT_BUS.register(new ClientTickListener());
+        modEventBus.register(new ModBusListeners());
+        NeoForge.EVENT_BUS.register(new ForgeEventListeners());
     }
 
-    @SubscribeEvent
-    public void modelBakeEvent(ModelEvent.BakingCompleted event) {
-        modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
+    public static class ModBusListeners {
+        @SubscribeEvent
+        public void modelBakeEvent(ModelEvent.BakingCompleted event) {
+            modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
+        }
     }
 
-    private static class ClientTickListener {
+    public static class ForgeEventListeners {
         @SubscribeEvent
         public void clientTickEvent(TickEvent.ClientTickEvent event) {
             if (event.phase == TickEvent.Phase.START) {

@@ -38,7 +38,7 @@ public class HUDTextRenderer {
      * The information is taken from the hudInfoUpdateLink which is updated by other classes.
      */
     public void displayHUDText(GuiGraphics guiGraphics) {
-        if (hudInfoUpdateLink == null || !hudInfoUpdateLink.menuVisible || hudInfoUpdateLink.itemCameraTransforms == null)
+        if (hudInfoUpdateLink == null || !hudInfoUpdateLink.menuVisible)
             return;
         ArrayList<String> displayText = new ArrayList<>();
         ArrayList<HUDInfoUpdateLink.SelectedField> selectableField = new ArrayList<>();
@@ -49,42 +49,40 @@ public class HUDTextRenderer {
         selectableField.add(NOT_SELECTABLE);
         ItemTransform transformation;
 
-        switch (hudInfoUpdateLink.selectedTransform) {
-        case THIRD_LEFT -> {
-            displayText.add("3rd-L");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand;
-        }
-        case THIRD_RIGHT -> {
-            displayText.add("3rd-R");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand;
-        }
-        case FIRST_LEFT -> {
-            displayText.add("1st-L");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand;
-        }
-        case FIRST_RIGHT -> {
-            displayText.add("1st-R");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand;
-        }
-        case GUI -> {
-            displayText.add("gui");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.gui;
-        }
-        case HEAD -> {
-            displayText.add("head");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.head;
-        }
-        case FIXED -> {
-            displayText.add("fixed");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.fixed;
-        }
-        case GROUND -> {
-            displayText.add("grnd");
-            transformation = hudInfoUpdateLink.itemCameraTransforms.ground;
-        }
-        default ->
-                throw new IllegalArgumentException("Unknown cameraTransformType:" + hudInfoUpdateLink.selectedTransform);
-        }
+        transformation = switch (hudInfoUpdateLink.selectedTransform) {
+            case THIRD_LEFT -> {
+                displayText.add("3rd-L");
+                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand;
+            }
+            case THIRD_RIGHT -> {
+                displayText.add("3rd-R");
+                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand;
+            }
+            case FIRST_LEFT -> {
+                displayText.add("1st-L");
+                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand;
+            }
+            case FIRST_RIGHT -> {
+                displayText.add("1st-R");
+                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand;
+            }
+            case GUI -> {
+                displayText.add("gui");
+                yield hudInfoUpdateLink.itemCameraTransforms.gui;
+            }
+            case HEAD -> {
+                displayText.add("head");
+                yield hudInfoUpdateLink.itemCameraTransforms.head;
+            }
+            case FIXED -> {
+                displayText.add("fixed");
+                yield hudInfoUpdateLink.itemCameraTransforms.fixed;
+            }
+            case GROUND -> {
+                displayText.add("grnd");
+                yield hudInfoUpdateLink.itemCameraTransforms.ground;
+            }
+        };
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSFORM);
 
         displayText.add("======");
@@ -109,7 +107,7 @@ public class HUDTextRenderer {
         displayText.add("Z:" + String.format("%3.0f", transformation.rotation.z()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.ROTATE_Z);
 
-        final double TRANSLATE_MULTIPLIER = 1 / 0.0625;   // see Transformation.Deserializer::deserialize
+        final double TRANSLATE_MULTIPLIER = 1 / 0.0625;   // see ItemTransform.Deserializer::deserialize
         displayText.add("======");
         selectableField.add(NOT_SELECTABLE);
         displayText.add("TRANSL");
@@ -157,7 +155,7 @@ public class HUDTextRenderer {
         private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
         private static final Vector3f SCALE_DEFAULT = new Vector3f(1.0F, 1.0F, 1.0F);
 
-        public ItemTransforms itemCameraTransforms;
+        public final ItemTransforms itemCameraTransforms;
         public SelectedField selectedField;
         public TransformName selectedTransform;
         public boolean menuVisible;

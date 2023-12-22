@@ -9,14 +9,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import static itemtransformhelper.ItemTransformHelper.MODID;
+import static itemtransformhelper.ItemTransformHelper.MOD_ID;
 
-@Mod(MODID)
+@Mod(MOD_ID)
 public class ItemTransformHelperForge {
 
     public ItemTransformHelperForge() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        EventBuses.registerModEventBus(MODID, modEventBus);
+        EventBuses.registerModEventBus(MOD_ID, modEventBus);
 
         // Register the setup method for modloading
         modEventBus.addListener(this::setup);

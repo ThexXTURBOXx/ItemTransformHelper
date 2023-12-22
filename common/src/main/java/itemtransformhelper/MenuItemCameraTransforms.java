@@ -77,10 +77,11 @@ public class MenuItemCameraTransforms {
 
         final float SCALE_INCREMENT = 0.01F;
         final float ROTATION_INCREMENT = 2F;
-        final float TRANSLATION_INCREMENT = 0.25F * 0.0625F; // 1/4 of a block, with multiplier from
-        // Transformation.Deserializer::deserialize
+        // 1/4 of a block, with multiplier from ItemTransform.Deserializer::deserialize
+        final float TRANSLATION_INCREMENT = 0.25F * 0.0625F;
         switch (linkToHudRenderer.selectedField) {
-        case TRANSFORM -> linkToHudRenderer.selectedTransform = increase ? linkToHudRenderer.selectedTransform.getNext()
+        case TRANSFORM -> linkToHudRenderer.selectedTransform = increase
+                ? linkToHudRenderer.selectedTransform.getNext()
                 : linkToHudRenderer.selectedTransform.getPrevious();
         case SCALE_X -> transformVec3f.scale.add(increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0, 0);
         case SCALE_Y -> transformVec3f.scale.add(0, increase ? SCALE_INCREMENT : -SCALE_INCREMENT, 0);
@@ -129,12 +130,14 @@ public class MenuItemCameraTransforms {
             printTransform(output, "thirdperson_righthand",
                     linkToHudRenderer.itemCameraTransforms.thirdPersonRightHand);
             output.append(",\n");
-            printTransform(output, "thirdperson_lefthand", linkToHudRenderer.itemCameraTransforms.thirdPersonLeftHand);
+            printTransform(output, "thirdperson_lefthand",
+                    linkToHudRenderer.itemCameraTransforms.thirdPersonLeftHand);
             output.append(",\n");
             printTransform(output, "firstperson_righthand",
                     linkToHudRenderer.itemCameraTransforms.firstPersonRightHand);
             output.append(",\n");
-            printTransform(output, "firstperson_lefthand", linkToHudRenderer.itemCameraTransforms.firstPersonLeftHand);
+            printTransform(output, "firstperson_lefthand",
+                    linkToHudRenderer.itemCameraTransforms.firstPersonLeftHand);
             output.append(",\n");
             printTransform(output, "gui", linkToHudRenderer.itemCameraTransforms.gui);
             output.append(",\n");
@@ -175,24 +178,30 @@ public class MenuItemCameraTransforms {
     }
 
     private static void printTransform(StringBuilder output, String transformView, ItemTransform transformation) {
-        output.append("    \"").append(transformView).append("\": {\n");
-        output.append("        \"rotation\": [ ");
-        output.append(String.format(Locale.US, "%.0f, ", transformation.rotation.x()));
-        output.append(String.format(Locale.US, "%.0f, ", transformation.rotation.y()));
-        output.append(String.format(Locale.US, "%.0f ],", transformation.rotation.z()));
-        output.append("\n");
+        final Locale LOCALE = Locale.US;
 
-        final double TRANSLATE_MULTIPLIER = 1 / 0.0625;   // see Transformation.Deserializer::deserialize
-        output.append("        \"translation\": [ ");
-        output.append(String.format(Locale.US, "%.2f, ", transformation.translation.x() * TRANSLATE_MULTIPLIER));
-        output.append(String.format(Locale.US, "%.2f, ", transformation.translation.y() * TRANSLATE_MULTIPLIER));
-        output.append(String.format(Locale.US, "%.2f ],", transformation.translation.z() * TRANSLATE_MULTIPLIER));
-        output.append("\n");
-        output.append("        \"scale\": [ ");
-        output.append(String.format(Locale.US, "%.2f, ", transformation.scale.x()));
-        output.append(String.format(Locale.US, "%.2f, ", transformation.scale.y()));
-        output.append(String.format(Locale.US, "%.2f ]", transformation.scale.z()));
-        output.append("\n    }");
+        output.append("    \"").append(transformView).append("\": {\n");
+
+        output.append(String.format(LOCALE,
+                "        \"rotation\": [ %.0f, %.0f, %.0f ],\n",
+                transformation.rotation.x(),
+                transformation.rotation.y(),
+                transformation.rotation.z()));
+
+        final double TRANSLATE_MULTIPLIER = 1 / 0.0625;   // see ItemTransform.Deserializer::deserialize
+        output.append(String.format(LOCALE,
+                "        \"translation\": [ %.2f, %.2f, %.2f ],\n",
+                transformation.translation.x() * TRANSLATE_MULTIPLIER,
+                transformation.translation.y() * TRANSLATE_MULTIPLIER,
+                transformation.translation.z() * TRANSLATE_MULTIPLIER));
+
+        output.append(String.format(LOCALE,
+                "        \"scale\": [ %.2f, %.2f, %.2f ]\n",
+                transformation.scale.x(),
+                transformation.scale.y(),
+                transformation.scale.z()));
+
+        output.append("    }");
     }
 
     private static void copyTransforms(ItemTransform from, ItemTransform to) {
@@ -215,6 +224,8 @@ public class MenuItemCameraTransforms {
         }
 
         public void clientTick() {
+            final int INITIAL_PAUSE_TICKS = 10;  // wait 10 ticks before repeating
+
             ArrowKeys keyPressed = ArrowKeys.NONE;
             if (isKeyDown(GLFW.GLFW_KEY_LEFT)) keyPressed = ArrowKeys.LEFT;
             if (isKeyDown(GLFW.GLFW_KEY_RIGHT)) keyPressed = ArrowKeys.RIGHT;
@@ -228,15 +239,12 @@ public class MenuItemCameraTransforms {
             if (keyPressed != lastKey) {
                 lastKey = keyPressed;
                 keyDownTimeTicks = 0;
-            } else {
-                ++keyDownTimeTicks;
-                final int INITIAL_PAUSE_TICKS = 10;  // wait 10 ticks before repeating
-                if (keyDownTimeTicks < INITIAL_PAUSE_TICKS) return;
-            }
+            } else if (++keyDownTimeTicks < INITIAL_PAUSE_TICKS) return;
+
             keyPressCallback.keyPressed(keyPressed);
         }
 
-        static boolean isKeyDown(int key) {
+        private static boolean isKeyDown(int key) {
             return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(), key) == GLFW.GLFW_PRESS;
         }
 

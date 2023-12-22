@@ -12,20 +12,23 @@ import static itemtransformhelper.StartupClientOnly.modelBakeEventHandler;
 public class StartupClientOnlyImpl {
 
     public static void clientSetup() {
-        StartupClientOnlyImpl instance = new StartupClientOnlyImpl();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(instance::modelBakeEvent);
-        MinecraftForge.EVENT_BUS.register(instance);
+        FMLJavaModLoadingContext.get().getModEventBus().register(new ModBusListeners());
+        MinecraftForge.EVENT_BUS.register(new ForgeEventListeners());
     }
 
-    @SubscribeEvent
-    public void modelBakeEvent(ModelEvent.BakingCompleted event) {
-        modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
+    public static class ModBusListeners {
+        @SubscribeEvent
+        public void modelBakeEvent(ModelEvent.BakingCompleted event) {
+            modelBakeEventHandler.modelBakeEvent(event.getModelBakery().getBakedTopLevelModels());
+        }
     }
 
-    @SubscribeEvent
-    public void clientTickEvent(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            clientTickHandler.clientTickEvent();
+    public static class ForgeEventListeners {
+        @SubscribeEvent
+        public void clientTickEvent(TickEvent.ClientTickEvent event) {
+            if (event.phase == TickEvent.Phase.START) {
+                clientTickHandler.clientTickEvent();
+            }
         }
     }
 
