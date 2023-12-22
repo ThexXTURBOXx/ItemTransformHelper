@@ -12,7 +12,7 @@ authors = "TGG, ThexXTURBOXx, Romejanic, lehjr"
 description = '''
 Interactively change the position, scale, and rotation of an item.
 '''
-logoFile = "logo.png"
+logoFile = "assets/itemtransformhelper/textures/item/item_camera_icon.png"
 license = "Unlicense"
 
 [[dependencies.itemtransformhelper]]

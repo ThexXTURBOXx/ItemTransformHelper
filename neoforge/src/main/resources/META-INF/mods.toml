@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
 issueTrackerURL = "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
-logoFile = "logo.png"
+logoFile = "assets/itemtransformhelper/textures/item/item_camera_icon.png"
 authors = "TGG, ThexXTURBOXx, Romejanic, lehjr"
 license = "Unlicense"
 

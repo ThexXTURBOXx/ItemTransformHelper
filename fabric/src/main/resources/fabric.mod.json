@@ -16,7 +16,7 @@
     "issues": "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
   },
   "license": "Unlicense",
-  "icon": "logo.png",
+  "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
