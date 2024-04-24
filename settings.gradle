@@ -8,11 +8,15 @@ pluginManagement {
     }
 }
 
+if (JavaVersion.current().ordinal() + 1 < 21) {
+    throw new IllegalStateException("Please run gradle with Java 21+!")
+}
+
 include("common")
 include("fabric-like")
 include("fabric")
 //include("quilt")
-include("forge")
+//include("forge")
 include("neoforge")
 
 rootProject.name = "ItemTransformHelper"

@@ -12,8 +12,7 @@ import static itemtransformhelper.fabric.MenuItemCameraTransformsImpl.RENDERERS;
 @Mixin(Gui.class)
 public class GuiMixin {
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderEffects"
-            + "(Lnet/minecraft/client/gui/GuiGraphics;)V"))
+    @Inject(method = "renderEffects", at = @At(value = "HEAD"))
     public void render(GuiGraphics guiGraphics, float f, CallbackInfo ci) {
         RENDERERS.forEach(r -> r.displayHUDText(guiGraphics));
     }

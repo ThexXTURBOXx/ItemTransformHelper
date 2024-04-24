@@ -3,7 +3,8 @@ package itemtransformhelper.neoforge;
 import itemtransformhelper.HUDTextRenderer;
 import itemtransformhelper.MenuItemCameraTransforms;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
 
@@ -24,15 +25,15 @@ public class MenuItemCameraTransformsImpl {
     }
 
     @SubscribeEvent
-    public void displayHUDText(CustomizeGuiOverlayEvent.Chat event) {
+    public void displayHUDText(RenderGuiLayerEvent.Pre event) {
+        if (!event.getName().equals(VanillaGuiLayers.EFFECTS)) return;
         hudTextRenderer.displayHUDText(event.getGuiGraphics());
     }
 
     @SubscribeEvent
     public void clientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            menuKeyHandler.clientTick();
-        }
+        if (event.phase != TickEvent.Phase.START) return;
+        menuKeyHandler.clientTick();
     }
 
 }
