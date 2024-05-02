@@ -30,7 +30,7 @@ public class ModelBakeEventHandler {
     public void modelBakeEvent(Map<ResourceLocation, BakedModel> modelRegistry) {
         for (ResourceLocation modelKey : modelRegistry.keySet()) {
             BakedModel bakedModel = modelRegistry.get(modelKey);
-            ItemModelFlexibleCamera wrappedModel = ItemModelFlexibleCamera.create(bakedModel, itemOverrideLink);
+            ItemModelFlexibleCamera wrappedModel = new ItemModelFlexibleCamera(bakedModel, itemOverrideLink);
             modelRegistry.put(modelKey, wrappedModel);
         }
 

@@ -1,7 +1,6 @@
 package itemtransformhelper;
 
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import java.util.List;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -28,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * NB Starting with Forge 1.8-11.14.4.1563, it appears that all items now implement IPerspectiveAwareModel
  */
-public abstract class ItemModelFlexibleCamera implements BakedModel {
+public class ItemModelFlexibleCamera implements BakedModel {
 
     protected final BakedModel originalModel;
     protected final UpdateLink updateLink;
@@ -36,11 +35,6 @@ public abstract class ItemModelFlexibleCamera implements BakedModel {
     protected ItemModelFlexibleCamera(BakedModel originalModel, UpdateLink updateLink) {
         this.originalModel = originalModel;
         this.updateLink = updateLink;
-    }
-
-    @ExpectPlatform
-    public static ItemModelFlexibleCamera create(BakedModel originalModel, UpdateLink updateLink) {
-        throw new UnsupportedOperationException();
     }
 
     @NotNull

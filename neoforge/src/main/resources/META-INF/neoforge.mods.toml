@@ -1,37 +1,35 @@
 modLoader = "javafml"
-loaderVersion = "[3,)"
-issueTrackerURL = "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
+loaderVersion = "${loader_version_range}"
+issueTrackerURL = "${mod_issues_url}"
 logoFile = "assets/itemtransformhelper/textures/item/item_camera_icon.png"
-license = "Unlicense"
+license = "${mod_license}"
 
 [[mods]]
-modId = "itemtransformhelper"
-version = "${version}"
-displayName = "Item Transform Helper"
-displayURL = "https://modrinth.com/mod/item-transform-helper"
-credits = "TGG, ThexXTURBOXx, Romejanic, lehjr"
-authors = "TGG, ThexXTURBOXx"
-description = '''
-Interactively change the position, scale, and rotation of an item.
-'''
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+displayURL = "${mod_home_url}"
+credits = "${mod_authors}"
+authors = "${mod_authors}"
+description = '''${mod_description}'''
 
-[[dependencies.itemtransformhelper]]
+[[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "[20,)"
+versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.itemtransformhelper]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.5,)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.itemtransformhelper]]
+[[dependencies.${mod_id}]]
 modId = "architectury"
 type = "required"
-versionRange = "[12.0.26,)"
+versionRange = "[${architectury_version},)"
 ordering = "AFTER"
 side = "BOTH"

@@ -25,10 +25,19 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
+    var replaceProperties = [
+            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+            neoforge_version       : neoforge_version, neoforge_version_range: neoforge_version_range,
+            loader_version_range: loader_version_range,
+            architectury_version: architectury_version,
+            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: version,
+            mod_authors         : mod_authors, mod_authors_list: mod_authors_list, mod_description: mod_description,
+            mod_issues_url      : mod_issues_url, mod_sources_url: mod_sources_url, mod_home_url: mod_home_url,
+    ]
+    inputs.properties replaceProperties
 
-    filesMatching("META-INF/neoforge.mods.toml") {
-        expand "version": project.version
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
     }
 }
 

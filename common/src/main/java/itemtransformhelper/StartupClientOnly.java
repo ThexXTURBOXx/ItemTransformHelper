@@ -1,5 +1,6 @@
 package itemtransformhelper;
 
+import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 
 /**
@@ -21,9 +22,14 @@ public class StartupClientOnly {
     public static final ClientTickHandler clientTickHandler = new ClientTickHandler();
     public static final MenuItemCameraTransforms menuItemCameraTransforms = new MenuItemCameraTransforms();
 
-    @ExpectPlatform
     public static void clientSetup() {
-        throw new UnsupportedOperationException();
+        ClientTickEvent.CLIENT_PRE.register(mc -> clientTickHandler.clientTickEvent());
+        platformClientSetup();
+    }
+
+    @ExpectPlatform
+    public static void platformClientSetup() {
+        throw new AssertionError();
     }
 
 }

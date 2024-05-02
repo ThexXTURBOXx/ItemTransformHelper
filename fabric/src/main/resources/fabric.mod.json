@@ -1,21 +1,18 @@
 {
   "schemaVersion": 1,
-  "id": "itemtransformhelper",
-  "version": "${version}",
-  "name": "Item Transform Helper",
-  "description": "Interactively change the position, scale, and rotation of an item.",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "TGG",
-    "ThexXTURBOXx",
-    "Romejanic",
-    "lehjr"
+    "${mod_authors_list}"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/item-transform-helper",
-    "sources": "https://github.com/ThexXTURBOXx/ItemTransformHelper",
-    "issues": "https://github.com/ThexXTURBOXx/ItemTransformHelper/issues"
+    "homepage": "${mod_home_url}",
+    "sources": "${mod_sources_url}",
+    "issues": "${mod_issues_url}"
   },
-  "license": "Unlicense",
+  "license": "${mod_license}",
   "icon": "assets/itemtransformhelper/textures/item/item_camera_icon.png",
   "environment": "*",
   "entrypoints": {
@@ -29,6 +26,6 @@
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20.5",
-    "architectury": ">=12.0.26"
+    "architectury": ">=${architectury_version}"
   }
 }

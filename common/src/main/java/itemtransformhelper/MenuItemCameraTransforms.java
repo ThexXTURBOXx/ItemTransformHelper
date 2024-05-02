@@ -1,5 +1,6 @@
 package itemtransformhelper;
 
+import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import java.util.Locale;
 import net.minecraft.client.Minecraft;
@@ -28,13 +29,16 @@ public class MenuItemCameraTransforms {
 
     public MenuItemCameraTransforms() {
         linkToHudRenderer = new HUDTextRenderer.HUDInfoUpdateLink();
-        registerListeners(new HUDTextRenderer(linkToHudRenderer),
-                new MenuKeyHandler(this.new KeyPressCallback()));
+
+        MenuKeyHandler menuKeyHandler = new MenuKeyHandler(this.new KeyPressCallback());
+        ClientTickEvent.CLIENT_PRE.register(mc -> menuKeyHandler.clientTick());
+
+        registerListeners(new HUDTextRenderer(linkToHudRenderer));
     }
 
     @ExpectPlatform
-    public static void registerListeners(HUDTextRenderer hudTextRenderer, MenuKeyHandler menuKeyHandler) {
-        throw new UnsupportedOperationException();
+    public static void registerListeners(HUDTextRenderer hudTextRenderer) {
+        throw new AssertionError();
     }
 
     /**
