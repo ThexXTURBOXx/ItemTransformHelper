@@ -1,5 +1,6 @@
 package itemtransformhelper.fabric.mixin;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,7 @@ import static itemtransformhelper.fabric.MenuItemCameraTransformsImpl.RENDERERS;
 public class GuiMixin {
 
     @Inject(method = "renderEffects", at = @At(value = "HEAD"))
-    public void render(GuiGraphics guiGraphics, float f, CallbackInfo ci) {
+    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         RENDERERS.forEach(r -> r.displayHUDText(guiGraphics));
     }
 

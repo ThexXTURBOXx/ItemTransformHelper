@@ -4,7 +4,7 @@ import java.util.Map;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 
 /**
  * User: The Grey Ghost
@@ -27,8 +27,8 @@ public class ModelBakeEventHandler {
                 ItemTransform.NO_TRANSFORM, ItemTransform.NO_TRANSFORM);
     }
 
-    public void modelBakeEvent(Map<ResourceLocation, BakedModel> modelRegistry) {
-        for (ResourceLocation modelKey : modelRegistry.keySet()) {
+    public void modelBakeEvent(Map<ModelResourceLocation, BakedModel> modelRegistry) {
+        for (ModelResourceLocation modelKey : modelRegistry.keySet()) {
             BakedModel bakedModel = modelRegistry.get(modelKey);
             ItemModelFlexibleCamera wrappedModel = new ItemModelFlexibleCamera(bakedModel, itemOverrideLink);
             modelRegistry.put(modelKey, wrappedModel);
