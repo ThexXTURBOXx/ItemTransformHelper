@@ -23,6 +23,7 @@
   "mixins": [
     "itemtransformhelper.mixins.json"
   ],
+  "accessWidener": "itemtransformhelper.accesswidener",
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20.5",

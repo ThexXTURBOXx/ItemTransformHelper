@@ -13,7 +13,7 @@ if (JavaVersion.current().ordinal() + 1 < 21) {
 }
 
 include("common")
-include("fabric-like")
+//include("fabric-like")
 include("fabric")
 //include("quilt")
 //include("forge")

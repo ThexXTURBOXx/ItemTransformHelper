@@ -1,10 +1,15 @@
 package itemtransformhelper;
 
 import java.util.List;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
+import static itemtransformhelper.ItemTransformHelper.MOD_ID;
 
 /**
  * User: The Grey Ghost
@@ -14,8 +19,12 @@ import net.minecraft.world.item.TooltipFlag;
  */
 public class ItemCamera extends Item {
 
+    public static final String ID = "item_camera";
+
     public ItemCamera() {
-        super(new Properties().stacksTo(1).arch$tab(StartupCommon.ITH_ITEM_GROUP));
+        super(new Properties()
+                .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, ID)))
+                .stacksTo(1).arch$tab(StartupCommon.ITH_ITEM_GROUP));
     }
 
     @Override

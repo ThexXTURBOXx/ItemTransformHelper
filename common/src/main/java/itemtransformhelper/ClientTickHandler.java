@@ -39,7 +39,7 @@ public class ClientTickHandler {
                 heldItemStack = player.getItemInHand(InteractionHand.OFF_HAND);
 
             if (!heldItemStack.isEmpty())
-                bakedModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(heldItemStack);
+                bakedModel = Minecraft.getInstance().getItemRenderer().itemModelShaper.getItemModel(heldItemStack);
         }
 
         ItemModelFlexibleCamera.UpdateLink link = StartupClientOnly.modelBakeEventHandler.getItemOverrideLink();

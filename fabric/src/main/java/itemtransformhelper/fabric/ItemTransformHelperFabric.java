@@ -1,13 +1,15 @@
 package itemtransformhelper.fabric;
 
-import itemtransformhelper.fabriclike.ItemTransformHelperFabricLike;
+import itemtransformhelper.ItemTransformHelper;
+import itemtransformhelper.StartupClientOnly;
 import net.fabricmc.api.ModInitializer;
 
 public class ItemTransformHelperFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ItemTransformHelperFabricLike.init();
+        ItemTransformHelper.init();
+        StartupClientOnly.clientSetup();
     }
 
 }

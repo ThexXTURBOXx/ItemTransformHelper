@@ -33,7 +33,7 @@ public class StartupCommon {
             DeferredRegister.create(MOD_ID, Registries.CREATIVE_MODE_TAB);
 
     // Items
-    public static final RegistrySupplier<ItemCamera> ITEM_CAMERA = ITEMS.register("item_camera", ItemCamera::new);
+    public static final RegistrySupplier<ItemCamera> ITEM_CAMERA = ITEMS.register(ItemCamera.ID, ItemCamera::new);
 
     // Item Groups
     public static final RegistrySupplier<CreativeModeTab> ITH_ITEM_GROUP = TABS.register("items",
