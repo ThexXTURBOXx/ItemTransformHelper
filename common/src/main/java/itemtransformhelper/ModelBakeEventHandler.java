@@ -1,10 +1,7 @@
 package itemtransformhelper;
 
-import java.util.Map;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 
 /**
  * User: The Grey Ghost
@@ -19,6 +16,8 @@ public class ModelBakeEventHandler {
 
     private final ItemModelFlexibleCamera.UpdateLink itemOverrideLink = new ItemModelFlexibleCamera.UpdateLink();
 
+    private boolean warned = false;
+
     public ModelBakeEventHandler() {
         itemOverrideLink.forcedTransform = new ItemTransforms(
                 ItemTransform.NO_TRANSFORM, ItemTransform.NO_TRANSFORM,
@@ -27,21 +26,18 @@ public class ModelBakeEventHandler {
                 ItemTransform.NO_TRANSFORM, ItemTransform.NO_TRANSFORM);
     }
 
-    public void modelBakeEvent(Map<ModelResourceLocation, BakedModel> modelRegistry) {
-        for (ModelResourceLocation modelKey : modelRegistry.keySet()) {
-            BakedModel bakedModel = modelRegistry.get(modelKey);
-            ItemModelFlexibleCamera wrappedModel = new ItemModelFlexibleCamera(bakedModel, itemOverrideLink);
-            modelRegistry.put(modelKey, wrappedModel);
+    public void modelBakeEvent() {
+        if (!warned) {
+            warned = true;
+            ItemTransformHelper.LOGGER.warn("Warning - The Item Transform Helper replaces your BakedModels with a "
+                                            + "wrapped version, this");
+            ItemTransformHelper.LOGGER.warn("  is done even when the helper is not in your hotbar, and might cause "
+                                            + "problems if your");
+            ItemTransformHelper.LOGGER.warn("  BakedModel implements an interface ItemTransformHelper doesn't know "
+                                            + "about.");
+            ItemTransformHelper.LOGGER.warn("  I recommend you disable the mod when you're not actively using it to "
+                                            + "transform your items.");
         }
-
-        ItemTransformHelper.LOGGER.warn("Warning - The Item Transform Helper replaces your BakedModels with a "
-                                        + "wrapped version, this");
-        ItemTransformHelper.LOGGER.warn("  is done even when the helper is not in your hotbar, and might cause "
-                                        + "problems if your");
-        ItemTransformHelper.LOGGER.warn("  BakedModel implements an interface ItemTransformHelper doesn't know about"
-                                        + ".");
-        ItemTransformHelper.LOGGER.warn("  I recommend you disable the mod when you're not actively using it to "
-                                        + "transform your items.");
     }
 
     public ItemModelFlexibleCamera.UpdateLink getItemOverrideLink() {

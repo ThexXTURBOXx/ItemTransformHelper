@@ -1,7 +1,6 @@
 package itemtransformhelper;
 
 import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 
 /**
  * User: The Grey Ghost
@@ -24,12 +23,6 @@ public class StartupClientOnly {
 
     public static void clientSetup() {
         ClientTickEvent.CLIENT_PRE.register(mc -> clientTickHandler.clientTickEvent());
-        platformClientSetup();
-    }
-
-    @ExpectPlatform
-    public static void platformClientSetup() {
-        throw new AssertionError();
     }
 
 }

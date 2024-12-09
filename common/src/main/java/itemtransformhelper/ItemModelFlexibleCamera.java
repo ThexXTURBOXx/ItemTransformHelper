@@ -2,13 +2,13 @@ package itemtransformhelper;
 
 
 import java.util.List;
-import net.minecraft.client.renderer.block.model.BakedOverrides;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +32,7 @@ public class ItemModelFlexibleCamera implements BakedModel {
     protected final BakedModel originalModel;
     protected final UpdateLink updateLink;
 
-    protected ItemModelFlexibleCamera(BakedModel originalModel, UpdateLink updateLink) {
+    public ItemModelFlexibleCamera(BakedModel originalModel, UpdateLink updateLink) {
         this.originalModel = originalModel;
         this.updateLink = updateLink;
     }
@@ -66,26 +66,21 @@ public class ItemModelFlexibleCamera implements BakedModel {
     }
 
     @Override
-    public boolean isCustomRenderer() {
-        return originalModel.isCustomRenderer();
-    }
-
-    @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
         return originalModel.getParticleIcon();
     }
 
-    @NotNull
-    @Override
-    public BakedOverrides overrides() {
-        return originalModel.overrides();
-    }
-
     public static class UpdateLink {
 
-        public BakedModel itemModelToOverride;
+        public volatile boolean foundCamera;
 
-        public ItemTransforms forcedTransform;
+        public volatile ItemStack heldItemStack;
+
+        public volatile boolean isRenderingHeldItem;
+
+        public volatile BakedModel itemModelToOverride;
+
+        public volatile ItemTransforms forcedTransform;
 
     }
 

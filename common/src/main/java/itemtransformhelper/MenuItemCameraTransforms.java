@@ -114,8 +114,7 @@ public class MenuItemCameraTransforms {
         case RESTORE_DEFAULT_ALL, RESTORE_DEFAULT -> {
             ItemModelFlexibleCamera.UpdateLink link = StartupClientOnly.modelBakeEventHandler.getItemOverrideLink();
             BakedModel savedModel = link.itemModelToOverride;
-            if (savedModel != null) {  // not sure why this would ever be null, but it was (in a bug report), so just
-                // check to make sure.
+            if (savedModel != null) {
                 link.itemModelToOverride = null;
                 if (linkToHudRenderer.selectedField == HUDTextRenderer.HUDInfoUpdateLink.SelectedField.RESTORE_DEFAULT) {
                     copySingleTransform(linkToHudRenderer, savedModel, linkToHudRenderer.selectedTransform);
@@ -132,24 +131,24 @@ public class MenuItemCameraTransforms {
             StringBuilder output = new StringBuilder();
             output.append("\n\"display\": {\n");
             printTransform(output, "thirdperson_righthand",
-                    linkToHudRenderer.itemCameraTransforms.thirdPersonRightHand);
+                    linkToHudRenderer.itemCameraTransforms.thirdPersonRightHand());
             output.append(",\n");
             printTransform(output, "thirdperson_lefthand",
-                    linkToHudRenderer.itemCameraTransforms.thirdPersonLeftHand);
+                    linkToHudRenderer.itemCameraTransforms.thirdPersonLeftHand());
             output.append(",\n");
             printTransform(output, "firstperson_righthand",
-                    linkToHudRenderer.itemCameraTransforms.firstPersonRightHand);
+                    linkToHudRenderer.itemCameraTransforms.firstPersonRightHand());
             output.append(",\n");
             printTransform(output, "firstperson_lefthand",
-                    linkToHudRenderer.itemCameraTransforms.firstPersonLeftHand);
+                    linkToHudRenderer.itemCameraTransforms.firstPersonLeftHand());
             output.append(",\n");
-            printTransform(output, "gui", linkToHudRenderer.itemCameraTransforms.gui);
+            printTransform(output, "gui", linkToHudRenderer.itemCameraTransforms.gui());
             output.append(",\n");
-            printTransform(output, "head", linkToHudRenderer.itemCameraTransforms.head);
+            printTransform(output, "head", linkToHudRenderer.itemCameraTransforms.head());
             output.append(",\n");
-            printTransform(output, "fixed", linkToHudRenderer.itemCameraTransforms.fixed);
+            printTransform(output, "fixed", linkToHudRenderer.itemCameraTransforms.fixed());
             output.append(",\n");
-            printTransform(output, "ground", linkToHudRenderer.itemCameraTransforms.ground);
+            printTransform(output, "ground", linkToHudRenderer.itemCameraTransforms.ground());
             output.append("\n}");
             LOGGER.info(output);
             Component text = Component.literal("\"display\" JSON section printed to console (LOGGER.info)...");
@@ -162,14 +161,14 @@ public class MenuItemCameraTransforms {
     private static ItemTransform getItemTransformRef(HUDTextRenderer.HUDInfoUpdateLink linkToHUDRenderer,
                                                      HUDTextRenderer.HUDInfoUpdateLink.TransformName transformName) {
         return switch (transformName) {
-            case THIRD_LEFT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonLeftHand;
-            case THIRD_RIGHT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonRightHand;
-            case FIRST_LEFT -> linkToHUDRenderer.itemCameraTransforms.firstPersonLeftHand;
-            case FIRST_RIGHT -> linkToHUDRenderer.itemCameraTransforms.firstPersonRightHand;
-            case GUI -> linkToHUDRenderer.itemCameraTransforms.gui;
-            case HEAD -> linkToHUDRenderer.itemCameraTransforms.head;
-            case FIXED -> linkToHUDRenderer.itemCameraTransforms.fixed;
-            case GROUND -> linkToHUDRenderer.itemCameraTransforms.ground;
+            case THIRD_LEFT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonLeftHand();
+            case THIRD_RIGHT -> linkToHUDRenderer.itemCameraTransforms.thirdPersonRightHand();
+            case FIRST_LEFT -> linkToHUDRenderer.itemCameraTransforms.firstPersonLeftHand();
+            case FIRST_RIGHT -> linkToHUDRenderer.itemCameraTransforms.firstPersonRightHand();
+            case GUI -> linkToHUDRenderer.itemCameraTransforms.gui();
+            case HEAD -> linkToHUDRenderer.itemCameraTransforms.head();
+            case FIXED -> linkToHUDRenderer.itemCameraTransforms.fixed();
+            case GROUND -> linkToHUDRenderer.itemCameraTransforms.ground();
         };
     }
 

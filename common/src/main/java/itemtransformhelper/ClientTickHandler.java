@@ -2,7 +2,6 @@ package itemtransformhelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -32,19 +31,17 @@ public class ClientTickHandler {
         }
         StartupClientOnly.menuItemCameraTransforms.changeMenuVisible(foundCamera);
 
-        BakedModel bakedModel = null;
+        ItemStack heldItemStack = null;
         if (foundCamera) {
-            ItemStack heldItemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+            heldItemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (heldItemStack.isEmpty())
                 heldItemStack = player.getItemInHand(InteractionHand.OFF_HAND);
-
-            if (!heldItemStack.isEmpty())
-                bakedModel = Minecraft.getInstance().getItemRenderer().itemModelShaper.getItemModel(heldItemStack);
         }
 
         ItemModelFlexibleCamera.UpdateLink link = StartupClientOnly.modelBakeEventHandler.getItemOverrideLink();
-        link.itemModelToOverride = bakedModel;
+        link.heldItemStack = heldItemStack;
         link.forcedTransform = StartupClientOnly.menuItemCameraTransforms.getItemCameraTransforms();
+        link.foundCamera = foundCamera;
     }
 
 }

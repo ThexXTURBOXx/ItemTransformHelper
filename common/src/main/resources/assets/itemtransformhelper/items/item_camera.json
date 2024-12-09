@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "itemtransformhelper:item/item_camera"
+  }
+}

@@ -52,35 +52,35 @@ public class HUDTextRenderer {
         transformation = switch (hudInfoUpdateLink.selectedTransform) {
             case THIRD_LEFT -> {
                 displayText.add("3rd-L");
-                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand;
+                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand();
             }
             case THIRD_RIGHT -> {
                 displayText.add("3rd-R");
-                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand;
+                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand();
             }
             case FIRST_LEFT -> {
                 displayText.add("1st-L");
-                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand;
+                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand();
             }
             case FIRST_RIGHT -> {
                 displayText.add("1st-R");
-                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand;
+                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand();
             }
             case GUI -> {
                 displayText.add("gui");
-                yield hudInfoUpdateLink.itemCameraTransforms.gui;
+                yield hudInfoUpdateLink.itemCameraTransforms.gui();
             }
             case HEAD -> {
                 displayText.add("head");
-                yield hudInfoUpdateLink.itemCameraTransforms.head;
+                yield hudInfoUpdateLink.itemCameraTransforms.head();
             }
             case FIXED -> {
                 displayText.add("fixed");
-                yield hudInfoUpdateLink.itemCameraTransforms.fixed;
+                yield hudInfoUpdateLink.itemCameraTransforms.fixed();
             }
             case GROUND -> {
                 displayText.add("grnd");
-                yield hudInfoUpdateLink.itemCameraTransforms.ground;
+                yield hudInfoUpdateLink.itemCameraTransforms.ground();
             }
         };
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSFORM);
