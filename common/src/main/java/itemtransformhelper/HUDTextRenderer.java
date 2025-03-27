@@ -1,6 +1,7 @@
 package itemtransformhelper;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,6 +9,7 @@ import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 /**
  * User: The Grey Ghost
@@ -49,62 +51,39 @@ public class HUDTextRenderer {
         selectableField.add(NOT_SELECTABLE);
         ItemTransform transformation;
 
-        transformation = switch (hudInfoUpdateLink.selectedTransform) {
-            case THIRD_LEFT -> {
-                displayText.add("3rd-L");
-                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonLeftHand();
-            }
-            case THIRD_RIGHT -> {
-                displayText.add("3rd-R");
-                yield hudInfoUpdateLink.itemCameraTransforms.thirdPersonRightHand();
-            }
-            case FIRST_LEFT -> {
-                displayText.add("1st-L");
-                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonLeftHand();
-            }
-            case FIRST_RIGHT -> {
-                displayText.add("1st-R");
-                yield hudInfoUpdateLink.itemCameraTransforms.firstPersonRightHand();
-            }
-            case GUI -> {
-                displayText.add("gui");
-                yield hudInfoUpdateLink.itemCameraTransforms.gui();
-            }
-            case HEAD -> {
-                displayText.add("head");
-                yield hudInfoUpdateLink.itemCameraTransforms.head();
-            }
-            case FIXED -> {
-                displayText.add("fixed");
-                yield hudInfoUpdateLink.itemCameraTransforms.fixed();
-            }
-            case GROUND -> {
-                displayText.add("grnd");
-                yield hudInfoUpdateLink.itemCameraTransforms.ground();
-            }
-        };
+        switch (hudInfoUpdateLink.selectedTransform) {
+        case THIRD_LEFT -> displayText.add("3rd-L");
+        case THIRD_RIGHT -> displayText.add("3rd-R");
+        case FIRST_LEFT -> displayText.add("1st-L");
+        case FIRST_RIGHT -> displayText.add("1st-R");
+        case GUI -> displayText.add("gui");
+        case HEAD -> displayText.add("head");
+        case FIXED -> displayText.add("fixed");
+        case GROUND -> displayText.add("grnd");
+        }
+        transformation = hudInfoUpdateLink.getItemTransform();
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSFORM);
 
         displayText.add("======");
         selectableField.add(NOT_SELECTABLE);
         displayText.add("SCALE");
         selectableField.add(NOT_SELECTABLE);
-        displayText.add("X:" + String.format("%.2f", transformation.scale.x()));
+        displayText.add("X:" + String.format("%.2f", transformation.scale().x()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.SCALE_X);
-        displayText.add("Y:" + String.format("%.2f", transformation.scale.y()));
+        displayText.add("Y:" + String.format("%.2f", transformation.scale().y()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.SCALE_Y);
-        displayText.add("Z:" + String.format("%.2f", transformation.scale.z()));
+        displayText.add("Z:" + String.format("%.2f", transformation.scale().z()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.SCALE_Z);
 
         displayText.add("======");
         selectableField.add(NOT_SELECTABLE);
         displayText.add("ROTATE");
         selectableField.add(NOT_SELECTABLE);
-        displayText.add("X:" + String.format("%3.0f", transformation.rotation.x()));
+        displayText.add("X:" + String.format("%3.0f", transformation.rotation().x()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.ROTATE_X);
-        displayText.add("Y:" + String.format("%3.0f", transformation.rotation.y()));
+        displayText.add("Y:" + String.format("%3.0f", transformation.rotation().y()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.ROTATE_Y);
-        displayText.add("Z:" + String.format("%3.0f", transformation.rotation.z()));
+        displayText.add("Z:" + String.format("%3.0f", transformation.rotation().z()));
         selectableField.add(HUDInfoUpdateLink.SelectedField.ROTATE_Z);
 
         final double TRANSLATE_MULTIPLIER = 1 / 0.0625;   // see ItemTransform.Deserializer::deserialize
@@ -112,11 +91,11 @@ public class HUDTextRenderer {
         selectableField.add(NOT_SELECTABLE);
         displayText.add("TRANSL");
         selectableField.add(NOT_SELECTABLE);
-        displayText.add("X:" + String.format("%.2f", transformation.translation.x() * TRANSLATE_MULTIPLIER));
+        displayText.add("X:" + String.format("%.2f", transformation.translation().x() * TRANSLATE_MULTIPLIER));
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSLATE_X);
-        displayText.add("Y:" + String.format("%.2f", transformation.translation.y() * TRANSLATE_MULTIPLIER));
+        displayText.add("Y:" + String.format("%.2f", transformation.translation().y() * TRANSLATE_MULTIPLIER));
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSLATE_Y);
-        displayText.add("Z:" + String.format("%.2f", transformation.translation.z() * TRANSLATE_MULTIPLIER));
+        displayText.add("Z:" + String.format("%.2f", transformation.translation().z() * TRANSLATE_MULTIPLIER));
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSLATE_Z);
 
         displayText.add("======");
@@ -155,7 +134,7 @@ public class HUDTextRenderer {
         private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
         private static final Vector3f SCALE_DEFAULT = new Vector3f(1.0F, 1.0F, 1.0F);
 
-        public final ItemTransforms itemCameraTransforms;
+        public ItemTransforms itemCameraTransforms;
         public SelectedField selectedField;
         public TransformName selectedTransform;
         public boolean menuVisible;
@@ -169,12 +148,27 @@ public class HUDTextRenderer {
             ItemTransform trGui = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trGround = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trFixed = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
-            itemCameraTransforms = new ItemTransforms(trThirdLeft, trThirdRight, trFirstLeft, trFirstRight,
-                    trHead, trGui, trGround, trFixed);
+            itemCameraTransforms = new ItemTransforms(trThirdLeft, trThirdRight,
+                    trFirstLeft, trFirstRight, trHead, trGui, trGround, trFixed);
 
             selectedField = SelectedField.TRANSFORM;
             selectedTransform = TransformName.FIRST_RIGHT;
             menuVisible = false;
+        }
+
+        // points to the appropriate transform based on which transform has been selected.
+        public ItemTransform getItemTransform() {
+            return selectedTransform.getItemTransform(itemCameraTransforms);
+        }
+
+        // points to the appropriate transform vector based on which field has been selected.
+        public Vector3fc getItemTransformVec() {
+            return selectedField.getItemTransformVec(itemCameraTransforms, selectedTransform);
+        }
+
+        // points to the appropriate transform vector based on which field has been selected.
+        public float getItemTransformVecValue() {
+            return selectedField.getItemTransformVecValue(itemCameraTransforms, selectedTransform);
         }
 
         public enum TransformName {
@@ -214,6 +208,19 @@ public class HUDTextRenderer {
                 this.vanillaType = vanillaType;
             }
 
+            public ItemTransform getItemTransform(ItemTransforms transforms) {
+                return switch (this) {
+                    case THIRD_LEFT -> transforms.thirdPersonLeftHand();
+                    case THIRD_RIGHT -> transforms.thirdPersonRightHand();
+                    case FIRST_LEFT -> transforms.firstPersonLeftHand();
+                    case FIRST_RIGHT -> transforms.firstPersonRightHand();
+                    case GUI -> transforms.gui();
+                    case HEAD -> transforms.head();
+                    case FIXED -> transforms.fixed();
+                    case GROUND -> transforms.ground();
+                };
+            }
+
         }
 
         public enum SelectedField {
@@ -251,6 +258,46 @@ public class HUDTextRenderer {
                 SelectedField previousField = getFieldName(fieldIndex - 1);
                 if (previousField == null) previousField = LAST_FIELD;
                 return previousField;
+            }
+
+            public Vector3fc getItemTransformVec(ItemTransforms transforms, TransformName selectedTransform) {
+                ItemTransform transform = selectedTransform.getItemTransform(transforms);
+                if (isScale()) return transform.scale();
+                if (isRotation()) return transform.rotation();
+                if (isTranslation()) return transform.translation();
+                return null;
+            }
+
+            public float getItemTransformVecValue(ItemTransforms transforms, TransformName selectedTransform) {
+                Vector3fc vec = getItemTransformVec(transforms, selectedTransform);
+                if (isX()) return Objects.requireNonNull(vec).x();
+                if (isY()) return Objects.requireNonNull(vec).y();
+                if (isZ()) return Objects.requireNonNull(vec).z();
+                return 0;
+            }
+
+            public boolean isScale() {
+                return this == SCALE_X || this == SCALE_Y || this == SCALE_Z;
+            }
+
+            public boolean isRotation() {
+                return this == ROTATE_X || this == ROTATE_Y || this == ROTATE_Z;
+            }
+
+            public boolean isTranslation() {
+                return this == TRANSLATE_X || this == TRANSLATE_Y || this == TRANSLATE_Z;
+            }
+
+            public boolean isX() {
+                return this == SCALE_X || this == ROTATE_X || this == TRANSLATE_X;
+            }
+
+            public boolean isY() {
+                return this == SCALE_Y || this == ROTATE_Y || this == TRANSLATE_Y;
+            }
+
+            public boolean isZ() {
+                return this == SCALE_Z || this == ROTATE_Z || this == TRANSLATE_Z;
             }
 
         }

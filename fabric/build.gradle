@@ -32,6 +32,7 @@ dependencies {
 processResources {
     var replaceProperties = [
             minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+            minecraft_version_condition: minecraft_version_condition,
             neoforge_version       : neoforge_version, neoforge_version_range: neoforge_version_range,
             loader_version_range: loader_version_range,
             architectury_version: architectury_version,

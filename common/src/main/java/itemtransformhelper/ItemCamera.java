@@ -1,6 +1,6 @@
 package itemtransformhelper;
 
-import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 import static itemtransformhelper.ItemTransformHelper.MOD_ID;
 
@@ -28,12 +29,12 @@ public class ItemCamera extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list,
-                                TooltipFlag tooltipFlag) {
-        list.add(Component.literal("1) Place the camera in your hotbar"));
-        list.add(Component.literal("2) Hold an item in your hand"));
-        list.add(Component.literal("3) Use the cursor keys to"));
-        list.add(Component.literal("   modify the item transform."));
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay,
+                                Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        consumer.accept(Component.literal("1) Place the camera in your hotbar"));
+        consumer.accept(Component.literal("2) Hold an item in your hand"));
+        consumer.accept(Component.literal("3) Use the cursor keys to"));
+        consumer.accept(Component.literal("   modify the item transform."));
     }
 
 }

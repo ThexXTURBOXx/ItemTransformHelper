@@ -22,7 +22,7 @@ public class ClientTickHandler {
         if (!foundCamera) {
             Inventory inventory = player.getInventory();
             for (int i = 0; i < Inventory.getSelectionSize(); ++i) {
-                ItemStack stack = inventory.items.get(i);
+                ItemStack stack = inventory.getItem(i);
                 if (stack.getItem() == StartupCommon.ITEM_CAMERA.get()) {
                     foundCamera = true;
                     break;
@@ -38,9 +38,9 @@ public class ClientTickHandler {
                 heldItemStack = player.getItemInHand(InteractionHand.OFF_HAND);
         }
 
-        ItemModelFlexibleCamera.UpdateLink link = StartupClientOnly.modelBakeEventHandler.getItemOverrideLink();
+        UpdateLink link = UpdateLink.INSTANCE;
         link.heldItemStack = heldItemStack;
-        link.forcedTransform = StartupClientOnly.menuItemCameraTransforms.getItemCameraTransforms();
+        link.forcedTransforms = StartupClientOnly.menuItemCameraTransforms.getItemCameraTransforms();
         link.foundCamera = foundCamera;
     }
 

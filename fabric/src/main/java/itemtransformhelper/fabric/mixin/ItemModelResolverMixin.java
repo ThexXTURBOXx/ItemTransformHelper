@@ -1,6 +1,6 @@
 package itemtransformhelper.fabric.mixin;
 
-import itemtransformhelper.ItemModelFlexibleCamera;
+import itemtransformhelper.UpdateLink;
 import java.util.Objects;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static itemtransformhelper.StartupClientOnly.modelBakeEventHandler;
-
 @Mixin(ItemModelResolver.class)
 public class ItemModelResolverMixin {
 
@@ -22,8 +20,7 @@ public class ItemModelResolverMixin {
     public void appendItemLayers(ItemStackRenderState itemStackRenderState, ItemStack itemStack,
                                  ItemDisplayContext itemDisplayContext, Level level, LivingEntity livingEntity, int i,
                                  CallbackInfo ci) {
-        ItemModelFlexibleCamera.UpdateLink link = modelBakeEventHandler.getItemOverrideLink();
-        link.isRenderingHeldItem = Objects.equals(itemStack, link.heldItemStack);
+        UpdateLink.INSTANCE.isRenderingHeldItem = Objects.equals(itemStack, UpdateLink.INSTANCE.heldItemStack);
     }
 
 }
