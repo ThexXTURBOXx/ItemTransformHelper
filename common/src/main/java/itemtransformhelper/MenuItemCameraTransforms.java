@@ -1,5 +1,6 @@
 package itemtransformhelper;
 
+import com.google.common.collect.ImmutableMap;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import itemtransformhelper.HUDTextRenderer.HUDInfoUpdateLink;
@@ -12,6 +13,7 @@ import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Vector3f;
@@ -42,6 +44,20 @@ public class MenuItemCameraTransforms {
 
     @ExpectPlatform
     public static void registerListeners(HUDTextRenderer hudTextRenderer) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static ItemTransforms newItemTransforms(ItemTransform thirdPersonLeftHand,
+                                                   ItemTransform thirdPersonRightHand,
+                                                   ItemTransform firstPersonLeftHand,
+                                                   ItemTransform firstPersonRightHand,
+                                                   ItemTransform head,
+                                                   ItemTransform gui,
+                                                   ItemTransform ground,
+                                                   ItemTransform fixed,
+                                                   ImmutableMap<ItemDisplayContext, ItemTransform> moddedTransforms
+    ) {
         throw new AssertionError();
     }
 
@@ -160,7 +176,7 @@ public class MenuItemCameraTransforms {
 
     public static ItemTransforms changeTransforms(ItemTransforms old, TransformName selectedTransform,
                                                   ItemTransform newTransform) {
-        return new ItemTransforms(
+        return newItemTransforms(
                 selectedTransform == TransformName.THIRD_LEFT ? newTransform : old.thirdPersonLeftHand(),
                 selectedTransform == TransformName.THIRD_RIGHT ? newTransform : old.thirdPersonRightHand(),
                 selectedTransform == TransformName.FIRST_LEFT ? newTransform : old.firstPersonLeftHand(),
@@ -168,7 +184,8 @@ public class MenuItemCameraTransforms {
                 selectedTransform == TransformName.HEAD ? newTransform : old.head(),
                 selectedTransform == TransformName.GUI ? newTransform : old.gui(),
                 selectedTransform == TransformName.GROUND ? newTransform : old.ground(),
-                selectedTransform == TransformName.FIXED ? newTransform : old.fixed()
+                selectedTransform == TransformName.FIXED ? newTransform : old.fixed(),
+                ImmutableMap.of()
         );
     }
 

@@ -1,5 +1,6 @@
 package itemtransformhelper;
 
+import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.Objects;
 import net.minecraft.client.Minecraft;
@@ -21,8 +22,8 @@ public class HUDTextRenderer {
     private static final HUDInfoUpdateLink.SelectedField NOT_SELECTABLE = null;
     private static final int MED_GRAY_HALF_TRANSPARENT = 0x6FAFAFB0;
     private static final int GREEN_HALF_TRANSPARENT = 0x6F00FF00;
-    private static final int LIGHT_GRAY = 0xE0E0E0;
-    private static final int BLACK = 0x000000;
+    private static final int LIGHT_GRAY = 0xFFE0E0E0;
+    private static final int BLACK = 0xFF000000;
 
     private final HUDInfoUpdateLink hudInfoUpdateLink;
 
@@ -148,8 +149,8 @@ public class HUDTextRenderer {
             ItemTransform trGui = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trGround = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trFixed = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
-            itemCameraTransforms = new ItemTransforms(trThirdLeft, trThirdRight,
-                    trFirstLeft, trFirstRight, trHead, trGui, trGround, trFixed);
+            itemCameraTransforms = MenuItemCameraTransforms.newItemTransforms(trThirdLeft, trThirdRight,
+                    trFirstLeft, trFirstRight, trHead, trGui, trGround, trFixed, ImmutableMap.of());
 
             selectedField = SelectedField.TRANSFORM;
             selectedTransform = TransformName.FIRST_RIGHT;

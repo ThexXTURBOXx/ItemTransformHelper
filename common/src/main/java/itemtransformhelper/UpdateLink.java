@@ -1,6 +1,5 @@
 package itemtransformhelper;
 
-
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.ItemStack;
 

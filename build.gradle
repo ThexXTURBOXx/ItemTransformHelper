@@ -15,7 +15,7 @@ subprojects {
     }
 
     repositories {
-        maven { url "https://maven.neoforged.net/releases/" }
+        maven { url = "https://maven.neoforged.net/releases/" }
     }
 
     dependencies {

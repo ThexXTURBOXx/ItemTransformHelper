@@ -20,7 +20,10 @@ public class ItemModelResolverMixin {
     public void appendItemLayers(ItemStackRenderState itemStackRenderState, ItemStack itemStack,
                                  ItemDisplayContext itemDisplayContext, Level level, LivingEntity livingEntity, int i,
                                  CallbackInfo ci) {
-        UpdateLink.INSTANCE.isRenderingHeldItem = Objects.equals(itemStack, UpdateLink.INSTANCE.heldItemStack);
+        UpdateLink link = UpdateLink.INSTANCE;
+        link.isRenderingHeldItem = Objects.equals(itemStack, link.heldItemStack);
+        if (link.isRenderingHeldItem)
+            itemStackRenderState.appendModelIdentityElement(link.forcedTransforms);
     }
 
 }
