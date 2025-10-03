@@ -56,6 +56,7 @@ public class MenuItemCameraTransforms {
                                                    ItemTransform gui,
                                                    ItemTransform ground,
                                                    ItemTransform fixed,
+                                                   ItemTransform onShelf,
                                                    ImmutableMap<ItemDisplayContext, ItemTransform> moddedTransforms
     ) {
         throw new AssertionError();
@@ -185,6 +186,7 @@ public class MenuItemCameraTransforms {
                 selectedTransform == TransformName.GUI ? newTransform : old.gui(),
                 selectedTransform == TransformName.GROUND ? newTransform : old.ground(),
                 selectedTransform == TransformName.FIXED ? newTransform : old.fixed(),
+                selectedTransform == TransformName.ON_SHELF ? newTransform : old.fixedFromBottom(),
                 ImmutableMap.of()
         );
     }
@@ -268,7 +270,7 @@ public class MenuItemCameraTransforms {
         }
 
         private static boolean isKeyDown(int key) {
-            return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(), key) == GLFW.GLFW_PRESS;
+            return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().handle(), key) == GLFW.GLFW_PRESS;
         }
 
         public enum ArrowKeys {NONE, UP, DOWN, LEFT, RIGHT}

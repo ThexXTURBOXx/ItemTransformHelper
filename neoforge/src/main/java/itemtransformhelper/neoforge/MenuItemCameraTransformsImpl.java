@@ -30,10 +30,11 @@ public class MenuItemCameraTransformsImpl {
                                                    ItemTransform gui,
                                                    ItemTransform ground,
                                                    ItemTransform fixed,
+                                                   ItemTransform onShelf,
                                                    ImmutableMap<ItemDisplayContext, ItemTransform> moddedTransforms) {
         return new ItemTransforms(thirdPersonLeftHand, thirdPersonRightHand,
                 firstPersonLeftHand, firstPersonRightHand,
-                head, gui, ground, fixed,
+                head, gui, ground, fixed, onShelf,
                 moddedTransforms);
     }
 

@@ -57,10 +57,11 @@ public class HUDTextRenderer {
         case THIRD_RIGHT -> displayText.add("3rd-R");
         case FIRST_LEFT -> displayText.add("1st-L");
         case FIRST_RIGHT -> displayText.add("1st-R");
-        case GUI -> displayText.add("gui");
         case HEAD -> displayText.add("head");
-        case FIXED -> displayText.add("fixed");
+        case GUI -> displayText.add("gui");
         case GROUND -> displayText.add("grnd");
+        case FIXED -> displayText.add("fixed");
+        case ON_SHELF -> displayText.add("shelf");
         }
         transformation = hudInfoUpdateLink.getItemTransform();
         selectableField.add(HUDInfoUpdateLink.SelectedField.TRANSFORM);
@@ -149,8 +150,9 @@ public class HUDTextRenderer {
             ItemTransform trGui = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trGround = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             ItemTransform trFixed = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
+            ItemTransform trOnShelf = new ItemTransform(ROTATION_DEFAULT, TRANSLATION_DEFAULT, SCALE_DEFAULT);
             itemCameraTransforms = MenuItemCameraTransforms.newItemTransforms(trThirdLeft, trThirdRight,
-                    trFirstLeft, trFirstRight, trHead, trGui, trGround, trFixed, ImmutableMap.of());
+                    trFirstLeft, trFirstRight, trHead, trGui, trGround, trFixed, trOnShelf, ImmutableMap.of());
 
             selectedField = SelectedField.TRANSFORM;
             selectedTransform = TransformName.FIRST_RIGHT;
@@ -181,7 +183,8 @@ public class HUDTextRenderer {
             HEAD(ItemDisplayContext.HEAD),
             GUI(ItemDisplayContext.GUI),
             GROUND(ItemDisplayContext.GROUND),
-            FIXED(ItemDisplayContext.FIXED);
+            FIXED(ItemDisplayContext.FIXED),
+            ON_SHELF(ItemDisplayContext.ON_SHELF);
 
             public static final TransformName[] VALUES = TransformName.values();
 
@@ -198,7 +201,7 @@ public class HUDTextRenderer {
                 for (TransformName transformName : VALUES) {
                     if (transformName.ordinal() == this.ordinal() - 1) return transformName;
                 }
-                return FIXED;
+                return ON_SHELF;
             }
 
             public ItemDisplayContext getVanillaTransformType() {
@@ -215,10 +218,11 @@ public class HUDTextRenderer {
                     case THIRD_RIGHT -> transforms.thirdPersonRightHand();
                     case FIRST_LEFT -> transforms.firstPersonLeftHand();
                     case FIRST_RIGHT -> transforms.firstPersonRightHand();
-                    case GUI -> transforms.gui();
                     case HEAD -> transforms.head();
-                    case FIXED -> transforms.fixed();
+                    case GUI -> transforms.gui();
                     case GROUND -> transforms.ground();
+                    case FIXED -> transforms.fixed();
+                    case ON_SHELF -> transforms.fixedFromBottom();
                 };
             }
 

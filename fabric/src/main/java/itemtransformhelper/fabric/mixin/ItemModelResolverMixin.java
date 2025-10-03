@@ -1,10 +1,9 @@
 package itemtransformhelper.fabric.mixin;
 
 import itemtransformhelper.UpdateLink;
-import java.util.Objects;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,10 +17,10 @@ public class ItemModelResolverMixin {
 
     @Inject(method = "appendItemLayers", at = @At(value = "HEAD"))
     public void appendItemLayers(ItemStackRenderState itemStackRenderState, ItemStack itemStack,
-                                 ItemDisplayContext itemDisplayContext, Level level, LivingEntity livingEntity, int i,
+                                 ItemDisplayContext itemDisplayContext, Level level, ItemOwner itemOwner, int i,
                                  CallbackInfo ci) {
         UpdateLink link = UpdateLink.INSTANCE;
-        link.isRenderingHeldItem = Objects.equals(itemStack, link.heldItemStack);
+        link.isRenderingHeldItem = ItemStack.isSameItem(itemStack, link.heldItemStack);
         if (link.isRenderingHeldItem)
             itemStackRenderState.appendModelIdentityElement(link.forcedTransforms);
     }
