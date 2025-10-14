@@ -20,7 +20,8 @@ public class ItemModelResolverMixin {
                                  ItemDisplayContext itemDisplayContext, Level level, ItemOwner itemOwner, int i,
                                  CallbackInfo ci) {
         UpdateLink link = UpdateLink.INSTANCE;
-        link.isRenderingHeldItem = ItemStack.isSameItem(itemStack, link.heldItemStack);
+        link.isRenderingHeldItem = link.heldItemStack != null &&
+                                   ItemStack.isSameItem(itemStack, link.heldItemStack);
         if (link.isRenderingHeldItem)
             itemStackRenderState.appendModelIdentityElement(link.forcedTransforms);
     }
