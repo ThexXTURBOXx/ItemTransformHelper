@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import itemtransformhelper.HUDTextRenderer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import net.minecraft.client.renderer.block.model.ItemTransform;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
 import net.minecraft.world.item.ItemDisplayContext;
 
 public class MenuItemCameraTransformsImpl {

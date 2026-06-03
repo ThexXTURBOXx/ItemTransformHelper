@@ -9,8 +9,8 @@ import itemtransformhelper.HUDTextRenderer.HUDInfoUpdateLink.TransformName;
 import java.util.Locale;
 import java.util.function.UnaryOperator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ItemTransform;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -37,7 +37,7 @@ public class MenuItemCameraTransforms {
         linkToHudRenderer = new HUDInfoUpdateLink();
 
         MenuKeyHandler menuKeyHandler = new MenuKeyHandler(this.new KeyPressCallback());
-        ClientTickEvent.CLIENT_PRE.register(mc -> menuKeyHandler.clientTick());
+        ClientTickEvent.CLIENT_PRE.register(_ -> menuKeyHandler.clientTick());
 
         registerListeners(new HUDTextRenderer(linkToHudRenderer));
     }
@@ -154,7 +154,7 @@ public class MenuItemCameraTransforms {
             output.append("\n}");
             LOGGER.info(output);
             Component text = Component.literal("\"display\" JSON section printed to console (LOGGER.info)...");
-            Minecraft.getInstance().gui.getChat().addMessage(text);
+            Minecraft.getInstance().gui.getChat().addClientSystemMessage(text);
         }
         }
     }

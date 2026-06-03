@@ -25,7 +25,7 @@
   ],
   "accessWidener": "itemtransformhelper.accesswidener",
   "depends": {
-    "fabric": "*",
+    "fabric-api": "*",
     "minecraft": "${minecraft_version_condition}",
     "architectury": ">=${architectury_version}"
   }

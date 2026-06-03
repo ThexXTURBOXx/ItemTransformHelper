@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.block.model.ItemTransform;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -40,7 +40,7 @@ public class HUDTextRenderer {
      * Draw the Head Up Display menu on screen.
      * The information is taken from the hudInfoUpdateLink which is updated by other classes.
      */
-    public void displayHUDText(GuiGraphics guiGraphics) {
+    public void displayHUDText(GuiGraphicsExtractor graphics) {
         if (hudInfoUpdateLink == null || !hudInfoUpdateLink.menuVisible)
             return;
         ArrayList<String> displayText = new ArrayList<>();
@@ -120,10 +120,10 @@ public class HUDTextRenderer {
             if (msg == null) continue;
             boolean fieldIsSelected = hudInfoUpdateLink.selectedField == selectableField.get(i);
             int highlightColour = fieldIsSelected ? GREEN_HALF_TRANSPARENT : MED_GRAY_HALF_TRANSPARENT;
-            guiGraphics.fill(xPos - 1, yPos - 1,
+            graphics.fill(xPos - 1, yPos - 1,
                     xPos + font.width(msg) + 1, yPos + font.lineHeight - 1, highlightColour);
             int stringColour = fieldIsSelected ? BLACK : LIGHT_GRAY;
-            guiGraphics.drawString(font, msg, xPos, yPos, stringColour, false);
+            graphics.text(font, msg, xPos, yPos, stringColour, false);
         }
     }
 

@@ -23,9 +23,9 @@ public class StartupClientOnly {
     public static final MenuItemCameraTransforms menuItemCameraTransforms = new MenuItemCameraTransforms();
 
     public static void clientSetup() {
-        ClientTickEvent.CLIENT_PRE.register(mc -> clientTickHandler.clientTickEvent());
+        ClientTickEvent.CLIENT_PRE.register(_ -> clientTickHandler.clientTickEvent());
 
-        ClientTooltipEvent.ITEM.register((stack, lines, tooltipContext, flag) -> {
+        ClientTooltipEvent.ITEM.register((stack, lines, _, _) -> {
             if (stack.is(StartupCommon.ITEM_CAMERA.get())) {
                 lines.addLast(Component.literal("1) Place the camera in your hotbar"));
                 lines.addLast(Component.literal("2) Hold an item in your hand"));

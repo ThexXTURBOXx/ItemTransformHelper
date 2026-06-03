@@ -16,14 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemModelResolverMixin {
 
     @Inject(method = "appendItemLayers", at = @At(value = "HEAD"))
-    public void appendItemLayers(ItemStackRenderState itemStackRenderState, ItemStack itemStack,
-                                 ItemDisplayContext itemDisplayContext, Level level, ItemOwner itemOwner, int i,
+    public void appendItemLayers(ItemStackRenderState output, ItemStack item,
+                                 ItemDisplayContext displayContext, Level level, ItemOwner owner, int seed,
                                  CallbackInfo ci) {
         UpdateLink link = UpdateLink.INSTANCE;
         link.isRenderingHeldItem = link.heldItemStack != null &&
-                                   ItemStack.isSameItem(itemStack, link.heldItemStack);
+                                   ItemStack.isSameItem(item, link.heldItemStack);
         if (link.isRenderingHeldItem)
-            itemStackRenderState.appendModelIdentityElement(link.forcedTransforms);
+            output.appendModelIdentityElement(link.forcedTransforms);
     }
 
 }
