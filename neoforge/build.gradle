@@ -9,6 +9,9 @@ architectury {
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+    neoForge {
+        convertAccessWideners(tasks.named('shadowJar'), accessWidenerPath.get().asFile.name)
+    }
 }
 
 configurations {
@@ -23,6 +26,15 @@ repositories {
     maven {
         name = 'NeoForged'
         url = 'https://maven.neoforged.net/releases'
+    }
+    if (rootProject.neoforge_pr != "") {
+        maven {
+            name = "NeoForged PR $rootProject.neoforge_pr"
+            url = "https://prmaven.neoforged.net/NeoForge/pr$rootProject.neoforge_pr"
+            content {
+                includeModule('net.neoforged', 'neoforge')
+            }
+        }
     }
 }
 

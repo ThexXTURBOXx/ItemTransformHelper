@@ -154,7 +154,7 @@ public class MenuItemCameraTransforms {
             output.append("\n}");
             LOGGER.info(output);
             Component text = Component.literal("\"display\" JSON section printed to console (LOGGER.info)...");
-            Minecraft.getInstance().gui.getChat().addClientSystemMessage(text);
+            Minecraft.getInstance().gui.hud.getChat().addClientSystemMessage(text);
         }
         }
     }
